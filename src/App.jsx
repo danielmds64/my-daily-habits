@@ -5,7 +5,7 @@ import { initialHabits } from "./data/habits";
 export default function App() {
   const completedCount = initialHabits.filter(
     (habit) => habit.completed,
-  ).lenght;
+  ).length;
 
   return (
     <main className="app">
