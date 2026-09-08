@@ -1,19 +1,24 @@
+import { useState } from "react";
 import "./App.css";
 import HabitList from "./components/HabitList";
 import Panel from "./components/Panel";
 import { initialHabits } from "./data/habits";
 
 export default function App() {
+  const [habits, setHabits] = useState(initialHabits);
+  
   const completedCount = initialHabits.filter(
     (habit) => habit.completed,
   ).length;
 
-  function handleShowDetails(habitId) {
-    const habit = initialHabits.find((item) => item.id === habitId);
-
-    if (habit) {
-      window.alert(`${habit.title} - Meta: ${habit.goal}`);
-    }
+  function handleToggleHabit(habitId) {
+    setHabits((currentHabits) => 
+      currentHabits.map((habit) => 
+        habit.id === habitId
+        ? { ...habit, completed: !habit.completed }
+        : habit,
+      ),
+    );
   }
 
   return (
@@ -26,8 +31,7 @@ export default function App() {
 
       <Panel title="Hábitos de hoje">
         <HabitList
-          habits={initialHabits}
-          onShowDetails={handleShowDetails}
+          habits={habits} onToggle={handleToggleHabit}
         />
       </Panel>
     </main>
