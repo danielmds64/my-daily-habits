@@ -61,6 +61,7 @@ h1, h2 {
   overflow: hidden; 
   border: 1px solid #d7dde5; 
   border-radius: 16px; 
+  margin-bottom: 16px ;
   background: #ffffff;
 } 
 
@@ -75,4 +76,28 @@ h1, h2 {
 
 .panel-header h2 {
   margin: 0;
+}
+
+.habit-form {
+  display: grid;
+  gap: 16px;
+}
+
+.field {
+  display: grid;
+  gap: 6px;
+}
+
+.field input {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  font: inherit;
+}
+
+.form-error {
+  margin: 0;
+  color: #b42318;
+  font-weight: 700;
 }

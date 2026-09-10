@@ -3,6 +3,7 @@ import "./App.css";
 import HabitList from "./components/HabitList";
 import Panel from "./components/Panel";
 import { initialHabits } from "./data/habits";
+import HabitForm from "./components/HabitForm";
 
 export default function App() {
   const [habits, setHabits] = useState(initialHabits);
@@ -21,6 +22,13 @@ export default function App() {
     );
   }
 
+  function handleAddHabits(newHabit) {
+    setHabits((currentHabits) => [
+      ...currentHabits,
+      newHabit,
+    ]);
+  }
+
   return (
     <main className="app">
       <header className="hero">
@@ -28,6 +36,10 @@ export default function App() {
         <h1>Pequenos hábitos, progresso visível.</h1>
         <p>{completedCount} de {initialHabits.length} hábitos concluídos.</p>
       </header>
+
+      <Panel title="Novo hábito">
+        <HabitForm onAddHabit={handleAddHabits} />
+      </Panel>
 
       <Panel title="Hábitos de hoje">
         <HabitList
