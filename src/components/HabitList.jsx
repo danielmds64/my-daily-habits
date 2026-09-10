@@ -1,7 +1,7 @@
 import HabitCard from "./HabitCard";
 
 export default function HabitList({ habits, onToggle }) {
-    if (habits.lenght === 0) {
+    if (habits.length === 0) {
         return <p>Nenhum hábito cadastrado.</p>
     }
 

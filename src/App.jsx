@@ -8,7 +8,7 @@ import HabitForm from "./components/HabitForm";
 export default function App() {
   const [habits, setHabits] = useState(initialHabits);
   
-  const completedCount = initialHabits.filter(
+  const completedCount = habits.filter(
     (habit) => habit.completed,
   ).length;
 
