@@ -1,6 +1,16 @@
+import { useContext } from "react";
+import { HabitsContext } from "../context/HabitsContext";
 import HabitCard from "./HabitCard";
 
-export default function HabitList({ habits, onToggle }) {
+export default function HabitList() {
+    const habitsContext = useContext(HabitsContext);
+
+    if (!habitsContext) {
+        throw new Error("HabitList precisa estar dentro de HabitsProvider.");
+    }
+
+    const { habits, toggleHabit } = habitsContext;
+
     if (habits.length === 0) {
         return <p>Nenhum hábito cadastrado.</p>
     }
@@ -11,7 +21,7 @@ export default function HabitList({ habits, onToggle }) {
                 <HabitCard
                     key={habit.id}
                     {...habit}
-                    onToggle={onToggle}
+                    onToggle={toggleHabit}
                 />
             ))}
         </section>

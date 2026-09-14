@@ -1,8 +1,16 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { HabitsContext } from "../context/HabitsContext";
 
-export default function HabitForm({ onAddHabit }) {
+export default function HabitForm() {
+    const habitsContext = useContext(HabitsContext);
     const [form, setForm] = useState({ title: "", goal: ""});
     const [error, setError] = useState("");
+
+    if (!habitsContext) {
+        throw new Error("HabitsForm precisa estar dentro de HabitsProvider.");
+    }
+
+    const { addHabit } = habitsContext;
 
     function handleChange(event) {
         const { name, value } = event.target;
@@ -24,7 +32,7 @@ export default function HabitForm({ onAddHabit }) {
             return;
         }
 
-        onAddHabit({
+        addHabit({
             id: crypto.randomUUID(),
             title,
             goal,

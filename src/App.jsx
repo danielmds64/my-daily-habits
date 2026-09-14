@@ -1,35 +1,17 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect } from "react";
 import "./App.css";
 import HabitForm from "./components/HabitForm";
 import HabitList from "./components/HabitList";
 import Panel from "./components/Panel";
-import { initialHabits } from "./data/habits";
-
-const STORAGE_KEY = "my-daily-habits:habits";
-
-function loadHabits() {
-  const savedHabits = localStorage.getItem(STORAGE_KEY);
-
-  if (!savedHabits) return initialHabits;
-
-  try {
-    const parsedHabits = JSON.parse(savedHabits);
-    return Array.isArray(parsedHabits) ? parsedHabits : initialHabits;
-  } catch {
-    return initialHabits;
-  }
-}
+import { HabitsContext } from "./context/HabitsContext";
 
 export default function App() {
-  const [habits, setHabits] = useState(loadHabits);
-  
-  const completedCount = habits.filter(
-    (habit) => habit.completed,
-  ).length;
+  const habitsContext = useContext(HabitsContext);
+  if (!habitsContext) {
+    throw new Error("App precisa estar dentro de HabitsProvider.");
+  }
 
-  useEffect(() => {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(habits));
-  }, [habits]);
+  const { habits, completedCount } = habitsContext;
 
   useEffect(() => {
     const previousTitle = document.title;
@@ -44,16 +26,6 @@ export default function App() {
     setHabits((currentHabits) => [...currentHabits, newHabit]);
   }
 
-  function handleToggleHabit(habitId) {
-    setHabits((currentHabits) => 
-      currentHabits.map((habit) => 
-        habit.id === habitId
-        ? { ...habit, completed: !habit.completed }
-        : habit,
-      ),
-    );
-  }
-
   return (
     <main className="app">
       <header className="hero">
@@ -63,13 +35,11 @@ export default function App() {
       </header>
 
       <Panel title="Novo hábito">
-        <HabitForm onAddHabit={handleAddHabits} />
+        <HabitForm />
       </Panel>
 
       <Panel title="Hábitos de hoje">
-        <HabitList
-          habits={habits} onToggle={handleToggleHabit}
-        />
+        <HabitList />
       </Panel>
     </main>
   );
