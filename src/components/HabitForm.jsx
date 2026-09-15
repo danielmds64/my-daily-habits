@@ -69,7 +69,7 @@ export default function HabitForm() {
 
             {error && <p className="form-error">{error}</p>}
 
-            <button type="submit">Adicionar hábito</button>
+            <button className="botao" type="submit">Adicionar hábito</button>
         </form>
     );
 }
