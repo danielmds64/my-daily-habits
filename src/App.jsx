@@ -1,32 +1,40 @@
-import { NavLink, Route, Routes } from "react-router";
-import "./App.css";
+import { Route, Routes } from "react-router";
+import ProtectedProgressRoute from "./components/ProtectedProgressRoute";
+import AppLayout from "./layouts/AppLayout";
+import HabitsLayout from "./layouts/HabitsLayout";
 import AboutPage from "./pages/AboutPage";
+import HabitDetailsPage from "./pages/HabitDetailsPage";
+import HabitsPage from "./pages/HabitsPage";
 import HomePage from "./pages/HomePage";
 import NewHabitPage from "./pages/NewHabitPage";
 import NotFoundPage from "./pages/NotFoundPage";
-import { useContext } from "react";
+import ProgressPage from "./pages/ProgressPage";
+import "./App.css"
 
 export default function App() {
   return (
-    <div className="app-shell">
-      <header className="app-header">
-        <strong>My Daily Habits</strong>
+    <Routes>
+      <Route element={<AppLayout />}>
+        <Route index element={<HomePage />} />
+        <Route path="novo" element={<NewHabitPage />} />
+        
+        <Route path="habitos" element={<HabitsLayout />}>
+          <Route index element={<HabitsPage />} />
+          <Route path=":habitId" element={<HabitDetailsPage />} />
+        </Route>
 
-        <nav aria-label="Navegação principal">
-          <NavLink to="/" end>Hoje</NavLink>
-          <NavLink to="/novo">Novo hábito</NavLink>
-          <NavLink to="sobre">Sobre</NavLink>
-        </nav>
-      </header>
+        <Route
+          path="progresso"
+          element={
+            <ProtectedProgressRoute>
+              <ProgressPage />
+            </ProtectedProgressRoute>
+          }
+        />
 
-      <main className="app">
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/novo" element={<NewHabitPage />} />
-          <Route path="/sobre" element={<AboutPage />} />
-          <Route path="*" element={<NotFoundPage />} />
-        </Routes>
-      </main>
-    </div>
+        <Route path="sobre" element={<AboutPage />} />
+        <Route path="*" element={<NotFoundPage />} />
+      </Route>
+    </Routes>
   );
 }

@@ -41,6 +41,7 @@ export default function HabitForm() {
 
         setForm({ title: "", goal: ""});
         setError("");
+        onSuccess?.();
     }
 
     return (
