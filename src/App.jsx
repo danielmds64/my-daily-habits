@@ -10,6 +10,7 @@ import NewHabitPage from "./pages/NewHabitPage";
 import NotFoundPage from "./pages/NotFoundPage";
 import ProgressPage from "./pages/ProgressPage";
 import "./App.css"
+import SuggestiosPage from "./pages/SuggestionsPage";
 
 export default function App() {
   return (
@@ -32,8 +33,10 @@ export default function App() {
           }
         />
 
+        <Route path="sugestoes" element={<SuggestiosPage />} />
         <Route path="sobre" element={<AboutPage />} />
         <Route path="*" element={<NotFoundPage />} />
+      
       </Route>
     </Routes>
   );

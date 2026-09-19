@@ -10,6 +10,7 @@ export default function AppLayout() {
                     <NavLink to="/novo">Novo hábito</NavLink>
                     <NavLink to="/habitos">Hábitos</NavLink>
                     <NavLink to="/progresso">Progresso</NavLink>
+                    <NavLink to="/sugestoes">Sugestões</NavLink>
                     <NavLink to="/sobre">Sobre</NavLink>
                 </nav>
             </header>
